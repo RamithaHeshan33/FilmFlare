@@ -15,6 +15,6 @@ The purpose of this PR is to fix #<issue-number>
 
 
 ##  Checklist
-- [] I created this pull request for the issue that was assigned to me
-- [] I have performed a self-review of my own code
-- [] I have commented on my code, particularly in hard-to-understand areas
+- [ ] I created this pull request for the issue that was assigned to me
+- [ ] I have performed a self-review of my own code
+- [ ] I have commented on my code, particularly in hard-to-understand areas
