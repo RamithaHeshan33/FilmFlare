@@ -62,7 +62,7 @@ const getRateByUserID = async (req, res) => {
         const { userId } = req.params;
         const rate = await rateModel.find({ user: userId });
         if (!rate || rate.length === 0) {
-            return res.status(404).json({ message: "No rates submitted this user" });
+            return res.status(404).json({ message: "No rates submitted by this user" });
         }
         return res.status(200).json(rate);
     } catch (error) {

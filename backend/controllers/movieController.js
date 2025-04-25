@@ -21,7 +21,7 @@ exports.getAllMovies = getAllMovies;
 const getMovieByID = async(req, res) => {
     try {
         const movie = await movieModel.findById(req.params.id);
-        if(!movie || movie.length === 0) {
+        if(!movie) {
             return res.status(404).json({message: "Movie not found"});
         }
         return res.status(200).json(movie);
@@ -88,7 +88,7 @@ exports.updateMovie = updateMovie;
 const deleteMovie = async(req, res) => {
     try {
         const movie = await movieModel.findByIdAndDelete(req.params.id);
-        if(!movie || movie.length === 0) {
+        if(!movie) {
             return res.status(404).json({message: "Movie not found"});
         }
         return res.status(200).json({message: "Movie deleted successfully"});
