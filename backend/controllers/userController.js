@@ -120,7 +120,11 @@ const updateUser = async(req, res) => {
             return res.status(400).json({message: "Please fill all fields"});
         }
 
-        const existingUser = await userModel.findOne({email, username});
+        const existingUser = await userModel.findOne({
+            email,
+            username,
+            _id: {$ne: id}
+        });
         if(existingUser) {
             return res.status(400).json({message: "User already exists"});
         }
