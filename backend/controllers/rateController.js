@@ -71,3 +71,27 @@ const getRateByUserID = async (req, res) => {
 }
 
 exports.getRateByUserID = getRateByUserID;
+
+// update rate by user id
+const updateRateByUserID = async (req, res) => {
+    try {
+        const { userId } = req.params;
+        const { rate, comment } = req.body;
+
+        const updatedRate = await rateModel.findOneAndUpdate(
+            { user: userId },
+            { rating: rate, comment: comment },
+            { new: true }
+        );
+
+        if (!updatedRate) {
+            return res.status(404).json({ message: "Rate not found" });
+        }
+
+        return res.status(200).json({ message: "Rate updated successfully",updatedRate});
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+exports.updateRateByUserID = updateRateByUserID;
