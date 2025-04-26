@@ -110,3 +110,40 @@ const deleteUser = async(req, res) => {
 }
 
 exports.deleteUser = deleteUser;
+
+// update user
+const updateUser = async(req, res) => {
+    const {id} = req.params;
+    try {
+        const {username, email, password, name, phone} = req.body;
+        if(!username || !email || !password || !name || !phone) {
+            return res.status(400).json({message: "Please fill all fields"});
+        }
+
+        const existingUser = await userModel.findOne({email, username});
+        if(existingUser) {
+            return res.status(400).json({message: "User already exists"});
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const updatedUser = await userModel.findByIdAndUpdate(id, {
+            username,
+            email,
+            password: hashedPassword,
+            name,
+            phone
+        }, {new: true});
+
+        if(!updatedUser) {
+            return res.status(404).json({message: "User not found"});
+        }
+
+        return res.status(200).json({message: "User updated successfully", user: updatedUser});
+    }
+    catch (error) {
+        return res.status(500).json({message: error.message});
+    }
+}
+
+exports.updateUser = updateUser;
